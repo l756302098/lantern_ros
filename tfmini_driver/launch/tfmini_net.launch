@@ -1,0 +1,8 @@
+<launch>
+  <node pkg="tfmini_driver" type="tfmini_net_driver_node" name="tfmini_net_driver_node" respawn="false" output="screen">
+    <param name="device_ip" type="string" value="192.168.1.200" />
+    <param name="device_port" type="int" value="3000" />
+  </node>
+  
+  <!-- <node pkg="tf" type="static_transform_publisher" name="broadcasterTFmini" args="0 0 0 0 0 0 base_link TFmini 100" /> -->
+</launch>
