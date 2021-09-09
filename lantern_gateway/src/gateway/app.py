@@ -18,14 +18,16 @@ class gate_node():
         server = GateServer()
         server.listen(9091)
         server.start()
+        # register shutdown callback and spin
         rospy.on_shutdown(self.cleanup)
         server.logic = Logic()
+        # create msg sub
+        
+
         # Hold on
         print("ioloop start")
         ioloop.IOLoop.current().start()
         print("node spin")
-        # register shutdown callback and spin
-        #rospy.spin()
 
     def cleanup(self):
         print "Shutting down gateway node."

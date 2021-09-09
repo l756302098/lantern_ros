@@ -6,12 +6,7 @@ from tornado.tcpserver import TCPServer
 class Logic():
 
     def __init__(self):
-        # self.client_stream = server
-        # self.client_address = address
-        pass
-
-    def speak(self):
-        print("speak")
+        self.clients = {}
 
     def input(self,data):
         """
