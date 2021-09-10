@@ -30,8 +30,8 @@ class Logic():
                         print(item[0],item[1])
                     #print(GateServer.send_q.get_nowait())
                     # msg_tupe = GateServer.send_q.get_nowait()
-            except:
-                print("receive error")
+            except Exception as e:
+                print("Logic::receive_msg error:",e)
             yield gen.sleep(1.0)
     
     def resolveJson(self):

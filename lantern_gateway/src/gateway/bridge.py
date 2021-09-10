@@ -11,7 +11,7 @@ def create_bridge(factory, msg_type, topic_from,topic_to):
     """ generate bridge instance using factory callable and arguments. if `factory` or `meg_type` is provided as string,
      this function will convert it to a corresponding object.
     """
-    print(factory,msg_type,topic_from,topic_to)
+    #print(factory,msg_type,topic_from,topic_to)
     if isinstance(factory, str):
         module_name, obj_name = factory.split(":")
         module = import_module(module_name, 'gateway')
@@ -34,7 +34,6 @@ def create_bridge(factory, msg_type, topic_from,topic_to):
 
 class Bridge(object):
     """ Bridge base class """
-    print("Bridge base")
     __metaclass__ = ABCMeta
 
 class RosToTcpBridge(Bridge):
@@ -51,18 +50,16 @@ class RosToTcpBridge(Bridge):
         rospy.Subscriber(topic_from, msg_type, self._callback_ros)
 
     def _callback_ros(self, msg):
-        print("receive msg")
-        rospy.logdebug("ROS received from {}".format(self._topic_from))
+        #rospy.logdebug("ROS received from {}".format(self._topic_from))
         now = rospy.get_time()
         if now - self._last_published >= self._interval:
             self._publish(msg)
             self._last_published = now
 
     def _publish(self, msg):
-        print("send msg ",msg,type(msg))
+        #print("send msg ",msg,type(msg))
         payload = message_conversion.extract_values(msg)
         ds = json.dumps(payload)
-        print(ds,type(ds))
         GateServer.send_q.put((10,ds))
 
 
