@@ -5,16 +5,15 @@ from server import GateServer
 from tornado import ioloop, gen, iostream
 from tornado.netutil import bind_sockets
 from logic import Logic
-from .bridge import create_bridge
+from bridge import create_bridge
 
 class gate_node():
-    def __init__(self):
+    def __init__(self,ros_name):
         # init node
-        rospy.init_node('lantern_gateway_node')
+        rospy.init_node(ros_name)
         # load parameters
         params = rospy.get_param("~", {})
-        print("load params:")
-        print(params)
+        print("load params:",params)
         bridge_params = params.get("bridge", [])
         print(bridge_params)
         # start server

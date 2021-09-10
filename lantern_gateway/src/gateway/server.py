@@ -10,7 +10,7 @@ class GateServer( TCPServer ):
 
     PORT = 9091
     clients = dict()
-    send_q = PriorityQueue(maxsize=100)
+    send_q = PriorityQueue(maxsize=1000)
     receive_q = PriorityQueue(maxsize=10)
 
     def __init__(self):

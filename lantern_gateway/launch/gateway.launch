@@ -8,7 +8,7 @@
       <param name="device_password" value="123qweasd"/>
       <param name="image_width" type="int" value="384"/>
       <param name="image_height" type="int" value="288"/>
-      <rosparam command="load" file="$(find lantern_gateway)/launch/demo_params.yaml" />
+      <rosparam command="load" file="$(find lantern_gateway)/launch/ros_msg.yaml" />
   </node>
 
     <!-- <node pkg="lantern_gateway" type="ros_sub_node.py" name="ros_sub_node" respawn="false" output="screen">

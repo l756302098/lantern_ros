@@ -3,14 +3,14 @@ bridge:
   - factory: gateway.bridge:RosToTcpBridge
     msg_type: std_msgs.msg:Bool
     topic_from: /ping
-    topic_to: ping
+    frequency: 5
   # echo back
   - factory: gateway.bridge:RosToTcpBridge
     msg_type: std_msgs.msg:String
     topic_from: /echo
-    topic_to: echo
+    frequency: 5
   # private path
   - factory: gateway.bridge:RosToTcpBridge
     msg_type: std_msgs.msg:String
     topic_from: /private/echo
-    topic_to: ~/echo
+    frequency: 5
