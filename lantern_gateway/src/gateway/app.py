@@ -3,7 +3,9 @@
 import rospy
 from server import GateServer
 from tornado import ioloop, gen, iostream
+from tornado.netutil import bind_sockets
 from logic import Logic
+from .bridge import create_bridge
 
 class gate_node():
     def __init__(self):
@@ -14,17 +16,21 @@ class gate_node():
         print("load params:")
         print(params)
         bridge_params = params.get("bridge", [])
+        print(bridge_params)
         # start server
+        sockets = bind_sockets(GateServer.PORT)
         server = GateServer()
-        server.listen(9091)
-        server.start()
+        server.add_sockets(sockets)
         # register shutdown callback and spin
         rospy.on_shutdown(self.cleanup)
         server.logic = Logic()
-        # create msg sub
-        
+        # configure bridges
+        bridges = []
+        for bridge_args in bridge_params:
+            print(bridge_args)
+            bridges.append(create_bridge(**bridge_args))
 
-        # Hold on
+        # hang
         print("ioloop start")
         ioloop.IOLoop.current().start()
         print("node spin")

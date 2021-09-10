@@ -1,0 +1,16 @@
+bridge:
+  # ping pong
+  - factory: gateway.bridge:RosToTcpBridge
+    msg_type: std_msgs.msg:Bool
+    topic_from: /ping
+    topic_to: ping
+  # echo back
+  - factory: gateway.bridge:RosToTcpBridge
+    msg_type: std_msgs.msg:String
+    topic_from: /echo
+    topic_to: echo
+  # private path
+  - factory: gateway.bridge:RosToTcpBridge
+    msg_type: std_msgs.msg:String
+    topic_from: /private/echo
+    topic_to: ~/echo
