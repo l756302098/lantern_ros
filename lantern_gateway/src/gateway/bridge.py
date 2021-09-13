@@ -6,6 +6,7 @@ from abc import ABCMeta
 from importlib import import_module
 from server import GateServer
 import json
+import os
 
 def create_bridge(factory, msg_type, topic_from,frequency=0):
     """ generate bridge instance using factory callable and arguments. if `factory` or `meg_type` is provided as string,
@@ -44,6 +45,7 @@ class RosToTcpBridge(Bridge):
 
     def __init__(self, topic_from, msg_type, frequency):
         print(topic_from,msg_type,type(msg_type))
+        print("RosToTcpBridge::init ",os.getuid(),os.getgid())
         self._topic_from = topic_from
         self._last_published = rospy.get_time()
         self._interval = 0 

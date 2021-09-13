@@ -20,9 +20,10 @@ class Logic():
 
     @gen.coroutine
     def receive_msg(self):
+        print("Logic::receive_msg ",os.getuid(),os.getgid())
         while True:
             try:
-                print("read from queue")
+                #print("read from queue")
                 while not GateServer.receive_q.empty():
                     print("size:",GateServer.receive_q.qsize())
                     item = yield GateServer.receive_q.get()

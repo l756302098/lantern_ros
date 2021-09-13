@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #coding=utf-8
-import logging
+import os
 from tornado.ioloop import IOLoop
 from tornado import gen, iostream
 from tornado.tcpserver import TCPServer
@@ -16,13 +16,15 @@ class GateServer( TCPServer ):
     def __init__(self):
         TCPServer.__init__(self)
         print("init gateway")
+        print("GateServer init ",os.getuid(),os.getgid())
         IOLoop.current().spawn_callback(self.consumer)
 
     @gen.coroutine
     def consumer(self):
+        print("consumer ",os.getuid(),os.getgid())
         while True:
             try:
-                print("do something...")
+                #print("do something...")
                 while not GateServer.send_q.empty():
                     #print("size:",GateServer.send_q.qsize())
                     item = yield GateServer.send_q.get()
@@ -44,6 +46,7 @@ class GateServer( TCPServer ):
         key = ip+":"+str(port)
         print(ip,port,key," 已上线")
         GateServer.clients[key] = stream
+        print("handle_stream ",os.getuid(),os.getgid())
         try:
             while True:
                 msg = yield stream.read_bytes( 1024, partial = True )
